@@ -1,82 +1,79 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-//The required global constants
 #define MAX 10
-int TOP = -1;
+
 int stack[MAX];
+int TOP = -1;
 
-//Display function//
-void Display(){
-    int i;
-    if(TOP==-1){
-        printf("\nThe STack is empty!\n");
+void show(){
+    if(TOP < 0){
+        printf("\nStack Empty\n");
         return;
     }
-    for(i=0;i<=TOP;i++){
-        printf(" | %d |\t", stack[i]);
+
+    printf("\nStack: ");
+    for(int i = 0; i <= TOP; i++){
+        printf("%d ", stack[i]);
     }
+    printf("\n");
 }
 
-//Push function//
-void Push(){
-    if(TOP== MAX-1){
-        printf("The Stsck is full");
+void count(){
+    int total = TOP + 1;
+    printf("Total elements: %d\n", total);
+    show();
+}
+
+void push(){
+    if(TOP == MAX - 1){
+        printf("Stack Overflow\n");
         return;
     }
+
+    int value;
+    printf("Enter value: ");
+    scanf("%d", &value);
+
     TOP++;
-    printf("Enter the data to enter: ");
-    scanf("%d",&stack[TOP]);
+    stack[TOP] = value;
 
-    Display();
+    show();
 }
 
-//Pop function
-
-void Pop(){
-    if(TOP==-1){
-        printf("The stack is empty!");
+void pop(){
+    if(TOP == -1){
+        printf("Stack Underflow\n");
+        return;
     }
-    printf("The element popped is %d\n\n",stack[TOP]);
-    --TOP;
-    Display();
-}
 
-//Count function
+    printf("Popped: %d\n", stack[TOP]);
+    TOP--;
 
-void Count(){
-    int c=0;
-    int i;
-    for (i = 0;i<=TOP;i++){
-        c++;
-    }
-    printf("There are %d elements in the stack!\n\n",c);
-
-    Display();
+    show();
 }
 
 int main(){
-    int choice;
+    int option;
+
     while(1){
+        printf("\n1.Push\n");
+        printf("2.Pop\n");
+        printf("3.Display\n");
+        printf("4.Count\n");
+        printf("5.Exit\n");
+        printf("Choice: ");
+        scanf("%d", &option);
 
-    printf("\n\n--------->MENU<---------\n\n");
-    printf("1.Push\n");
-    printf("2.Pop\n");
-    printf("3.Display\n");
-    printf("4.Count\n");
-    printf("5.Exit\n");
-
-    printf("Enter the choice:");
-    scanf("%d", &choice);
-
-    switch(choice){
-
-        case 1: Push();break;
-        case 2: Pop();break;
-        case 3: Display();break;
-        case 4: Count();break;
-        case 5: printf("Exiting...\n");exit(0);
-        default: printf("Invalid Choice!");
+        switch(option){
+            case 1: push(); break;
+            case 2: pop(); break;
+            case 3: show(); break;
+            case 4: count(); break;
+            case 5: printf("Exiting\n"); exit(0);
+            default: printf("Invalid choice\n");
+        }
     }
-}
+
+    return 0;
 }
